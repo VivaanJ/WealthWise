@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WealthWise — Virtual Investment Simulator</title>
+<style>
+:root{--navy:#101b33;--navy2:#172744;--blue:#4169e1;--blue2:#eaf0ff;--bg:#f4f6fb;--text:#172033;--muted:#7a8498;--line:#e5e9f2;--green:#14845b;--greenbg:#e7f7ef;--red:#c44251;--redbg:#fff0f1;--white:#fff;--shadow:0 8px 24px rgba(20,34,63,.06)}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text)}button,input,select{font:inherit}button{cursor:pointer;border:0;border-radius:10px;padding:11px 15px;font-weight:700;transition:.15s}button:hover{transform:translateY(-1px);filter:brightness(.98)}.app{min-height:100vh;display:grid;grid-template-columns:238px 1fr}.sidebar{background:var(--navy);color:#fff;padding:26px 16px;display:flex;flex-direction:column;gap:30px}.brand{display:flex;align-items:center;gap:11px;padding:0 10px}.brandmark{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#5b83ff,#5de0b4);display:grid;place-items:center;font-weight:900;font-size:20px;color:#0d1a32}.brand strong{display:block;font-size:18px;letter-spacing:1px}.brand small{display:block;color:#aab8d1;font-size:10px;letter-spacing:1.4px;margin-top:4px}.nav-label{color:#8392ae;font-size:10px;font-weight:800;letter-spacing:1.5px;padding:0 12px;margin-bottom:-18px}.nav{display:grid;gap:7px}.nav button{background:transparent;color:#b7c2d7;text-align:left;display:flex;gap:12px;align-items:center;padding:13px 12px;font-weight:600}.nav button.active,.nav button:hover{background:#263755;color:#fff}.nav .ico{width:21px;text-align:center;font-size:17px}.side-bottom{margin-top:auto;border:1px solid #35445e;border-radius:13px;padding:14px;color:#b9c5d9;font-size:12px;line-height:1.5}.dot{display:inline-block;width:7px;height:7px;background:#49d49a;border-radius:50%;margin-right:6px}.main{min-width:0}.topbar{height:78px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 34px;gap:16px}.crumb{color:var(--muted);font-size:12px}.topbar h2{margin:4px 0 0;font-size:19px}.userpill{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700}.avatar{background:#e7edff;color:#3e5cc0;border-radius:50%;width:36px;height:36px;display:grid;place-items:center}.content{padding:28px 34px 40px;max-width:1500px;margin:auto}.welcome{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;margin-bottom:24px}.welcome h1{font-size:27px;margin:0 0 7px;letter-spacing:-.6px}.welcome p{color:var(--muted);margin:0;font-size:14px}.date-chip{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 13px;color:#5e6a80;font-size:12px;white-space:nowrap}.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;margin-bottom:22px}.metric{background:#fff;border:1px solid var(--line);border-radius:16px;padding:19px;box-shadow:var(--shadow);min-width:0}.metric-top{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:12px;font-weight:650}.metric-icon{width:34px;height:34px;display:grid;place-items:center;border-radius:11px;background:var(--blue2);color:var(--blue);font-size:17px}.metric-value{font-size:25px;font-weight:800;letter-spacing:-.7px;margin:15px 0 7px;overflow-wrap:anywhere}.metric-foot{font-size:11px;color:var(--muted)}.positive{color:var(--green)!important}.negative{color:var(--red)!important}.grid-main{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(300px,.85fr);gap:18px;margin-bottom:18px}.panel{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);min-width:0}.panel-head{padding:19px 20px 15px;display:flex;justify-content:space-between;align-items:center;gap:10px}.panel-head h3{font-size:15px;margin:0}.panel-head p{font-size:11px;color:var(--muted);margin:5px 0 0}.linkbtn{background:transparent;color:var(--blue);padding:6px;font-size:12px}.chart-wrap{padding:0 18px 16px}.chart-legend{display:flex;gap:18px;font-size:11px;color:var(--muted);margin:0 0 10px}.legend-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;background:var(--blue)}.legend-dot.green{background:#31b78a}.chart{width:100%;height:205px;display:block}.chart text{font-family:inherit;font-size:10px;fill:#98a2b5}.trade-panel{padding-bottom:17px}.trade-tabs{display:flex;background:#f0f3f9;border-radius:10px;padding:4px;margin:0 20px 16px}.trade-tabs button{flex:1;background:transparent;color:#7b8498;padding:9px}.trade-tabs button.selected.buy{background:var(--green);color:#fff}.trade-tabs button.selected.sell{background:var(--red);color:#fff}.field{padding:0 20px;margin-bottom:14px}.field label{display:block;color:#707b90;font-size:11px;font-weight:700;margin-bottom:7px}.field select,.field input{width:100%;padding:11px 12px;border:1px solid #dfe5ef;border-radius:9px;background:#fff;color:var(--text);outline:none}.field select:focus,.field input:focus{border-color:#7894f2;box-shadow:0 0 0 3px #eaf0ff}.asset-preview{margin:0 20px 15px;background:#f7f9fd;border:1px solid #e8edf6;border-radius:11px;padding:13px;display:flex;justify-content:space-between;gap:8px}.asset-preview strong{font-size:13px}.asset-preview small{display:block;color:var(--muted);font-size:11px;margin-top:4px}.asset-preview .price{text-align:right;font-weight:800;font-size:15px}.trade-total{display:flex;justify-content:space-between;padding:0 20px 14px;font-size:12px;color:var(--muted)}.trade-total strong{color:var(--text);font-size:14px}.primary{width:calc(100% - 40px);margin:0 20px;background:var(--blue);color:white}.primary.buybtn{background:var(--green)}.primary.sellbtn{background:var(--red)}.tiny-note{font-size:10px;line-height:1.5;color:var(--muted);padding:12px 20px 0}.table-panel{margin-bottom:18px}.table-scroll{overflow-x:auto}table{width:100%;border-collapse:collapse;white-space:nowrap}th{font-size:10px;text-transform:uppercase;letter-spacing:.6px;color:#8791a4;text-align:left;padding:12px 18px;background:#fafbfe;border-top:1px solid #f0f2f7;border-bottom:1px solid #edf0f6}td{padding:14px 18px;border-bottom:1px solid #f0f2f7;font-size:12px}tbody tr:last-child td{border-bottom:0}.asset-name{display:flex;align-items:center;gap:10px}.asset-logo{width:34px;height:34px;display:grid;place-items:center;background:#edf1ff;color:#3d5dc7;border-radius:10px;font-weight:800;font-size:11px}.asset-name strong{display:block;font-size:12px}.asset-name small{display:block;color:var(--muted);font-size:10px;margin-top:3px}.pill{display:inline-block;padding:5px 8px;border-radius:20px;background:#eef2f8;color:#667188;font-size:10px;font-weight:700}.empty{text-align:center;color:var(--muted);padding:30px!important}.bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.allocation{padding:0 20px 20px;display:flex;align-items:center;gap:20px}.donut{width:130px;height:130px;border-radius:50%;background:conic-gradient(#4169e1 0 35%,#29b78a 35% 58%,#f0b44a 58% 77%,#9c7ae8 77% 100%);position:relative;flex-shrink:0}.donut:after{content:"";position:absolute;inset:25px;background:#fff;border-radius:50%}.allocation-list{flex:1;display:grid;gap:12px}.alloc-row{display:flex;justify-content:space-between;gap:8px;font-size:11px;color:#69758a}.alloc-row span:first-child:before{content:"";display:inline-block;width:8px;height:8px;border-radius:3px;background:var(--swatch);margin-right:7px}.history-list{padding:0 20px 10px}.history-item{display:flex;gap:11px;padding:12px 0;border-bottom:1px solid #f0f2f7}.history-item:last-child{border-bottom:0}.history-icon{width:32px;height:32px;border-radius:10px;background:var(--greenbg);color:var(--green);display:grid;place-items:center;font-weight:800}.history-icon.sell{background:var(--redbg);color:var(--red)}.history-detail{flex:1;min-width:0}.history-detail strong{display:block;font-size:12px}.history-detail small{display:block;color:var(--muted);font-size:10px;margin-top:4px}.history-amount{text-align:right;font-size:12px;font-weight:800;white-space:nowrap}.notice{background:#fff8e8;border:1px solid #f6e6b8;color:#88651a;border-radius:11px;padding:12px 15px;font-size:11px;margin-bottom:18px}.page{display:none}.page.active{display:block}.market-actions{display:flex;gap:8px}.secondary{background:#eef2ff;color:#3d5dc7}.toast{position:fixed;right:24px;bottom:24px;background:#172744;color:#fff;padding:14px 18px;border-radius:12px;box-shadow:0 12px 35px #17274433;max-width:360px;font-size:13px;z-index:20;animation:up .2s ease}.toast.error{background:#8e2b37}@keyframes up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}.modal-backdrop{position:fixed;inset:0;background:#0e1935a8;display:none;align-items:center;justify-content:center;padding:20px;z-index:30}.modal-backdrop.show{display:flex}.modal{background:#fff;border-radius:18px;max-width:450px;width:100%;padding:24px;box-shadow:0 25px 80px #0003}.modal h3{margin:0 0 8px}.modal p{color:var(--muted);font-size:13px;line-height:1.6}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}.modal-actions button{width:auto;margin:0}.hide{display:none!important}
+@media(max-width:1050px){.app{grid-template-columns:205px 1fr}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.grid-main{grid-template-columns:1fr}.trade-panel{max-width:none}.content{padding:24px 20px}.topbar{padding:0 20px}}
+@media(max-width:720px){.app{display:block}.sidebar{padding:13px;gap:13px}.brand{padding:0 4px}.nav-label,.side-bottom{display:none}.nav{display:flex;overflow-x:auto}.nav button{white-space:nowrap;padding:10px}.topbar{height:64px;padding:0 15px}.content{padding:18px 12px}.welcome{display:block}.date-chip{display:inline-block;margin-top:13px}.cards{gap:9px}.metric{padding:13px}.metric-value{font-size:19px}.grid-main,.bottom-grid{grid-template-columns:1fr}.allocation{flex-wrap:wrap}.donut{width:110px;height:110px}.userpill span{display:none}}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brandmark">W</div><div><strong>WEALTHWISE</strong><small>VIRTUAL INVESTING</small></div></div>
+    <div class="nav-label">WORKSPACE</div>
+    <nav class="nav">
+      <button class="active" data-page="overview"><span class="ico">▦</span> Overview</button>
+      <button data-page="market"><span class="ico">↗</span> Market</button>
+      <button data-page="portfolio"><span class="ico">◫</span> My Portfolio</button>
+      <button data-page="activity"><span class="ico">◷</span> Activity</button>
+    </nav>
+    <div class="side-bottom"><span class="dot"></span><strong>Simulation is active</strong><br>Practice investing with virtual money. No real trades are made.</div>
+  </aside>
+  <main class="main">
+    <header class="topbar">
+      <div><div class="crumb">Workspace / <span id="crumb">Overview</span></div><h2 id="topTitle">Investment dashboard</h2></div>
+      <div class="userpill"><span>Demo Investor</span><div class="avatar">DI</div></div>
+    </header>
+    <div class="content">
+      <div class="notice">⚠ <strong>Simulation only:</strong> Asset prices are sample values with randomized movements. This app does not use live market data or real money.</div>
+
+      <section id="page-overview" class="page active">
+        <div class="welcome"><div><h1>Good morning, Investor 👋</h1><p>Your virtual portfolio at a glance. Learn by making simulated trades.</p></div><div class="date-chip" id="dateChip">Market session • Today</div></div>
+        <div class="cards">
+          <div class="metric"><div class="metric-top">Available cash <span class="metric-icon">₹</span></div><div class="metric-value" id="cashMetric">₹1,00,000</div><div class="metric-foot">Ready to invest</div></div>
+          <div class="metric"><div class="metric-top">Investment value <span class="metric-icon">◫</span></div><div class="metric-value" id="investMetric">₹0</div><div class="metric-foot">Current value of holdings</div></div>
+          <div class="metric"><div class="metric-top">Total portfolio <span class="metric-icon">▤</span></div><div class="metric-value" id="totalMetric">₹1,00,000</div><div class="metric-foot">Cash + investment value</div></div>
+          <div class="metric"><div class="metric-top">Total profit / loss <span class="metric-icon">↗</span></div><div class="metric-value" id="plMetric">₹0</div><div class="metric-foot" id="returnFoot">0.00% portfolio return</div></div>
+        </div>
+        <div class="grid-main">
+          <div class="panel">
+            <div class="panel-head"><div><h3>Portfolio performance</h3><p>Illustrative portfolio value over the current session</p></div><button class="linkbtn" id="refreshChart">Refresh ↻</button></div>
+            <div class="chart-wrap"><div class="chart-legend"><span><i class="legend-dot"></i>Portfolio value</span><span><i class="legend-dot green"></i>Starting balance</span></div><svg class="chart" id="chart" viewBox="0 0 620 205" preserveAspectRatio="none" aria-label="Portfolio value chart"></svg></div>
+          </div>
+          <div class="panel trade-panel">
+            <div class="panel-head"><div><h3>Quick trade</h3><p>Buy or sell simulated assets</p></div><span class="pill">PAPER TRADE</span></div>
+            <div class="trade-tabs"><button id="buyTab" class="selected buy">Buy</button><button id="sellTab" class="sell">Sell</button></div>
+            <div class="field"><label for="assetSelect">SELECT ASSET</label><select id="assetSelect"></select></div>
+            <div class="asset-preview"><div><strong id="previewName">Tata Consultancy Services</strong><small id="previewType">Stock • TCS</small></div><div class="price"><span id="previewPrice">₹3,850.00</span><small id="previewMove" class="positive">Sample price</small></div></div>
+            <div class="field"><label for="unitsInput">QUANTITY (UNITS)</label><input id="unitsInput" type="number" min="1" step="1" value="1"></div>
+            <div class="trade-total"><span id="totalLabel">Estimated purchase</span><strong id="tradeTotal">₹3,850.00</strong></div>
+            <button class="primary buybtn" id="tradeButton">Buy asset</button>
+            <div class="tiny-note">Trades use the current simulated price. Selling is limited to units in your portfolio.</div>
+          </div>
+        </div>
+        <div class="panel table-panel">
+          <div class="panel-head"><div><h3>Market watch</h3><p>Popular sample assets</p></div><button class="linkbtn" data-goto="market">View market →</button></div>
+          <div class="table-scroll"><table><thead><tr><th>Asset</th><th>Type</th><th>Price</th><th>Simulated change</th><th></th></tr></thead><tbody id="watchRows"></tbody></table></div>
+        </div>
+        <div class="bottom-grid">
+          <div class="panel"><div class="panel-head"><div><h3>Asset allocation</h3><p>Composition of your investment holdings</p></div></div><div class="allocation"><div class="donut" id="donut"></div><div class="allocation-list" id="allocationList"></div></div></div>
+          <div class="panel"><div class="panel-head"><div><h3>Recent activity</h3><p>Your latest simulated trades</p></div><button class="linkbtn" data-goto="activity">View all →</button></div><div class="history-list" id="recentHistory"></div></div>
+        </div>
+      </section>
+
+      <section id="page-market" class="page">
+        <div class="welcome"><div><h1>Market watch</h1><p>Explore the available sample assets and simulate market movement.</p></div><button class="secondary" id="marketUpdate">↻ Simulate market movement</button></div>
+        <div class="cards" id="marketCards"></div>
+        <div class="panel table-panel"><div class="panel-head"><div><h3>Available assets</h3><p>Choose an asset to populate the quick-trade form.</p></div></div><div class="table-scroll"><table><thead><tr><th>Asset</th><th>Symbol</th><th>Type</th><th>Simulated price</th><th>Change</th><th></th></tr></thead><tbody id="marketRows"></tbody></table></div></div>
+      </section>
+
+      <section id="page-portfolio" class="page">
+        <div class="welcome"><div><h1>My portfolio</h1><p>Track units owned, average purchase cost and unrealized profit/loss.</p></div><button class="secondary" id="exportBtn">↓ Export portfolio CSV</button></div>
+        <div class="cards">
+          <div class="metric"><div class="metric-top">Available cash <span class="metric-icon">₹</span></div><div class="metric-value" id="pCash">₹1,00,000</div><div class="metric-foot">Uninvested balance</div></div>
+          <div class="metric"><div class="metric-top">Invested cost <span class="metric-icon">◫</span></div><div class="metric-value" id="pCost">₹0</div><div class="metric-foot">Cost of current holdings</div></div>
+          <div class="metric"><div class="metric-top">Unrealized P/L <span class="metric-icon">↗</span></div><div class="metric-value" id="pUnrealized">₹0</div><div class="metric-foot">On assets currently held</div></div>
+          <div class="metric"><div class="metric-top">Realized P/L <span class="metric-icon">✓</span></div><div class="metric-value" id="pRealized">₹0</div><div class="metric-foot">From completed sales</div></div>
+        </div>
+        <div class="panel table-panel"><div class="panel-head"><div><h3>Your holdings</h3><p>Values update when you simulate market movement.</p></div></div><div class="table-scroll"><table><thead><tr><th>Asset</th><th>Units</th><th>Average buy</th><th>Market price</th><th>Market value</th><th>Unrealized P/L</th><th></th></tr></thead><tbody id="holdingRows"></tbody></table></div></div>
+        <div class="panel"><div class="panel-head"><div><h3>Performance summary</h3><p>Realized and unrealized gains/losses are shown separately.</p></div></div><div style="padding:0 20px 20px;display:flex;gap:28px;flex-wrap:wrap"><div><small style="color:var(--muted)">Total portfolio value</small><h2 id="pTotal" style="margin:7px 0">₹1,00,000</h2></div><div><small style="color:var(--muted)">Combined profit/loss</small><h2 id="pCombined" style="margin:7px 0">₹0</h2></div><div><small style="color:var(--muted)">Return on starting balance</small><h2 id="pReturn" style="margin:7px 0">0.00%</h2></div></div></div>
+      </section>
+
+      <section id="page-activity" class="page">
+        <div class="welcome"><div><h1>Activity & transactions</h1><p>A complete local history of your buys, sells and market updates.</p></div><div class="market-actions"><button class="secondary" id="exportHistory">↓ Export history CSV</button><button class="secondary" id="resetBtn">Reset demo</button></div></div>
+        <div class="cards">
+          <div class="metric"><div class="metric-top">Total trades <span class="metric-icon">⇄</span></div><div class="metric-value" id="hTrades">0</div><div class="metric-foot">Completed buys and sells</div></div>
+          <div class="metric"><div class="metric-top">Buy orders <span class="metric-icon">↙</span></div><div class="metric-value" id="hBuys">0</div><div class="metric-foot">Simulated purchases</div></div>
+          <div class="metric"><div class="metric-top">Sell orders <span class="metric-icon">↗</span></div><div class="metric-value" id="hSells">0</div><div class="metric-foot">Simulated sales</div></div>
+          <div class="metric"><div class="metric-top">Realized P/L <span class="metric-icon">₹</span></div><div class="metric-value" id="hPL">₹0</div><div class="metric-foot">Profit/loss from sales</div></div>
+        </div>
+        <div class="panel table-panel"><div class="panel-head"><div><h3>All transactions</h3><p>Saved automatically in this browser on this device.</p></div><span class="pill" id="historyCount">0 records</span></div><div class="table-scroll"><table><thead><tr><th>Date & time</th><th>Action</th><th>Asset</th><th>Units</th><th>Unit price</th><th>Total amount</th><th>Trade P/L</th></tr></thead><tbody id="historyRows"></tbody></table></div></div>
+      </section>
+    </div>
+  </main>
+</div>
+<div class="modal-backdrop" id="modalBackdrop"><div class="modal"><h3 id="modalTitle">Confirm action</h3><p id="modalText"></p><div class="modal-actions"><button class="secondary" id="modalCancel">Cancel</button><button class="primary" id="modalConfirm" style="width:auto;margin:0">Confirm</button></div></div></div>
+<script>
+(() => {
+  const STORAGE_KEY = "wealthwise-web-v1";
+  const STARTING_CASH = 100000;
+  const seed = [
+    {symbol:"TCS",name:"Tata Consultancy Services",type:"Stock",price:3850,previous:3850,short:"TCS"},
+    {symbol:"INFY",name:"Infosys",type:"Stock",price:1750,previous:1750,short:"INF"},
+    {symbol:"RELIANCE",name:"Reliance Industries",type:"Stock",price:2900,previous:2900,short:"REL"},
+    {symbol:"NIFTY50",name:"Nifty 50 Index Fund",type:"Mutual Fund",price:250,previous:250,short:"N50"},
+    {symbol:"BLUECHIP",name:"Bluechip Fund",type:"Mutual Fund",price:180,previous:180,short:"BCF"}
+  ];
+  let state = {cash:STARTING_CASH,realizedPL:0,assets:seed.map(x=>({...x})),holdings:{},history:[],chart:[]};
+  let tradeMode = "BUY";
+  let pendingConfirm = null;
+  const $ = id => document.getElementById(id);
+  const money = n => "₹" + Number(n||0).toLocaleString("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2});
+  const compact = n => "₹" + Number(n||0).toLocaleString("en-IN",{maximumFractionDigits:0});
+  const signedMoney = n => (n>=0?"+":"−") + money(Math.abs(n));
+  const escapeHTML = s => String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const asset = symbol => state.assets.find(a=>a.symbol===symbol);
+  const holding = symbol => state.holdings[symbol];
+  const investValue = () => Object.entries(state.holdings).reduce((sum,[s,h])=>sum+asset(s).price*h.units,0);
+  const investedCost = () => Object.entries(state.holdings).reduce((sum,[s,h])=>sum+h.avg*h.units,0);
+  const unrealizedPL = () => investValue()-investedCost();
+  const totalValue = () => state.cash+investValue();
+  const combinedPL = () => state.realizedPL+unrealizedPL();
+  const fmtDate = d => new Date(d).toLocaleString("en-IN",{day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"});
+  function persist(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state));}catch(e){toast("Could not save data in this browser.",true);}}
+  function load(){
+    try{
+      const raw=localStorage.getItem(STORAGE_KEY);
+      if(raw){const saved=JSON.parse(raw);if(saved && Array.isArray(saved.assets) && typeof saved.cash==="number"){state={...state,...saved};state.assets=seed.map(s=>({...s,...(saved.assets.find(a=>a.symbol===s.symbol)||{})}));}}
+    }catch(e){console.warn("Could not load saved state",e);}
+    if(!Array.isArray(state.chart)||!state.chart.length)state.chart=[{time:Date.now(),value:totalValue()}];
+  }
+  function toast(message,error=false){const old=document.querySelector(".toast");if(old)old.remove();const el=document.createElement("div");el.className="toast"+(error?" error":"");el.textContent=message;document.body.appendChild(el);setTimeout(()=>el.remove(),3400);}
+  function addHistory(action,a,units,unitPrice,amount,pl=0){
+    state.history.unshift({id:Date.now()+Math.random(),date:new Date().toISOString(),action,symbol:a.symbol,name:a.name,units,unitPrice,amount,pl});
+  }
+  function recordChart(){state.chart.push({time:Date.now(),value:totalValue()});if(state.chart.length>24)state.chart=state.chart.slice(-24);}
+  function nav(page){
+    document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id==="page-"+page));
+    document.querySelectorAll("[data-page]").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
+    const names={overview:["Overview","Investment dashboard"],market:["Market","Market watch"],portfolio:["My Portfolio","Portfolio analytics"],activity:["Activity","Transactions & activity"]};
+    $("crumb").textContent=names[page][0];$("topTitle").textContent=names[page][1];
+    if(page==="market")renderMarket();if(page==="portfolio")renderPortfolio();if(page==="activity")renderHistory();
+    window.scrollTo({top:0,behavior:"smooth"});
+  }
+  function renderAssetSelect(){
+    const sel=$("assetSelect"),old=sel.value;sel.innerHTML=state.assets.map(a=>`<option value="${a.symbol}">${a.symbol} — ${a.name}</option>`).join("");
+    if(asset(old))sel.value=old;updatePreview();
+  }
+  function updatePreview(){
+    const a=asset($("assetSelect").value);if(!a)return;
+    $("previewName").textContent=a.name;$("previewType").textContent=a.type+" • "+a.symbol;
+    $("previewPrice").textContent=money(a.price);
+    const change=a.previous?((a.price-a.previous)/a.previous*100):0;
+    $("previewMove").textContent=(change>=0?"+":"")+change.toFixed(2)+"% session";
+    $("previewMove").className=change>=0?"positive":"negative";
+    const units=Math.max(1,parseInt($("unitsInput").value,10)||1);
+    $("tradeTotal").textContent=money(a.price*units);
+    $("totalLabel").textContent=tradeMode==="BUY"?"Estimated purchase":"Estimated sale proceeds";
+    $("tradeButton").textContent=tradeMode==="BUY"?"Buy asset":"Sell asset";
+    $("tradeButton").className="primary "+(tradeMode==="BUY"?"buybtn":"sellbtn");
+    $("buyTab").classList.toggle("selected",tradeMode==="BUY");$("sellTab").classList.toggle("selected",tradeMode==="SELL");
+    $("buyTab").classList.toggle("buy",tradeMode==="BUY");$("sellTab").classList.toggle("sell",tradeMode==="SELL");
+  }
+  function setMode(mode){tradeMode=mode;updatePreview();}
+  function trade(){
+    const a=asset($("assetSelect").value),units=Number($("unitsInput").value);
+    if(!a)return toast("Choose an asset first.",true);
+    if(!Number.isSafeInteger(units)||units<1)return toast("Enter a whole-number quantity greater than zero.",true);
+    const amount=a.price*units;
+    if(!Number.isFinite(amount)||amount<=0)return toast("Invalid trade amount.",true);
+    if(tradeMode==="BUY"){
+      if(amount>state.cash)return toast(`Insufficient cash. Required ${money(amount)}, available ${money(state.cash)}.`,true);
+      const h=holding(a.symbol);
+      if(h){h.avg=((h.avg*h.units)+(a.price*units))/(h.units+units);h.units+=units;}
+      else state.holdings[a.symbol]={units,avg:a.price};
+      state.cash-=amount;addHistory("BUY",a,units,a.price,amount,0);
+      toast(`Bought ${units} unit(s) of ${a.symbol} for ${money(amount)}.`);
+    }else{
+      const h=holding(a.symbol);
+      if(!h||h.units<units)return toast(`You do not have ${units} unit(s) of ${a.symbol}.`,true);
+      const pl=(a.price-h.avg)*units;
+      state.cash+=amount;state.realizedPL+=pl;h.units-=units;
+      if(h.units===0)delete state.holdings[a.symbol];
+      addHistory("SELL",a,units,a.price,amount,pl);
+      toast(`Sold ${units} unit(s) of ${a.symbol}. Realized P/L: ${money(pl)}.`);
+    }
+    recordChart();persist();refreshAll();
+  }
+  function simulateMarket(){
+    state.assets.forEach(a=>{a.previous=a.price;const pct=(Math.random()*10)-5;a.price=Math.max(.01,a.price*(1+pct/100));});
+    recordChart();persist();refreshAll();toast("Simulated prices updated. Portfolio values recalculated.");
+  }
+  function renderWatch(){
+    $("watchRows").innerHTML=state.assets.map(a=>{
+      const pct=(a.price-a.previous)/a.previous*100;return `<tr><td><div class="asset-name"><div class="asset-logo">${a.short}</div><div><strong>${escapeHTML(a.name)}</strong><small>${a.symbol}</small></div></div></td><td><span class="pill">${a.type}</span></td><td><strong>${money(a.price)}</strong></td><td class="${pct>=0?'positive':'negative'}">${pct>=0?'+':''}${pct.toFixed(2)}%</td><td><button class="linkbtn" data-buy="${a.symbol}">Trade →</button></td></tr>`;
+    }).join("");
+  }
+  function renderMarket(){
+    $("marketCards").innerHTML=state.assets.slice(0,4).map((a,i)=>{const pct=(a.price-a.previous)/a.previous*100;return `<div class="metric"><div class="metric-top">${a.symbol}<span class="metric-icon">${i%2?"↗":"₹"}</span></div><div class="metric-value">${money(a.price)}</div><div class="metric-foot ${pct>=0?'positive':'negative'}">${pct>=0?'+':''}${pct.toFixed(2)}% simulated change</div></div>`;}).join("");
+    $("marketRows").innerHTML=state.assets.map(a=>{const pct=(a.price-a.previous)/a.previous*100;return `<tr><td><div class="asset-name"><div class="asset-logo">${a.short}</div><div><strong>${escapeHTML(a.name)}</strong><small>${a.type}</small></div></div></td><td><strong>${a.symbol}</strong></td><td>${a.type}</td><td><strong>${money(a.price)}</strong></td><td class="${pct>=0?'positive':'negative'}">${pct>=0?'+':''}${pct.toFixed(2)}%</td><td><button class="linkbtn" data-buy="${a.symbol}">Trade →</button></td></tr>`;}).join("");
+  }
+  function renderPortfolio(){
+    $("pCash").textContent=money(state.cash);$("pCost").textContent=money(investedCost());$("pUnrealized").textContent=money(unrealizedPL());$("pRealized").textContent=money(state.realizedPL);
+    $("pTotal").textContent=money(totalValue());$("pCombined").textContent=money(combinedPL());
+    $("pReturn").textContent=((totalValue()-STARTING_CASH)/STARTING_CASH*100).toFixed(2)+"%";
+    $("pCombined").className=combinedPL()>=0?"positive":"negative";
+    const entries=Object.entries(state.holdings);
+    $("holdingRows").innerHTML=entries.length?entries.map(([s,h])=>{const a=asset(s),val=a.price*h.units,pl=val-h.avg*h.units;return `<tr><td><div class="asset-name"><div class="asset-logo">${a.short}</div><div><strong>${a.name}</strong><small>${s}</small></div></div></td><td>${h.units}</td><td>${money(h.avg)}</td><td>${money(a.price)}</td><td><strong>${money(val)}</strong></td><td class="${pl>=0?'positive':'negative'}">${signedMoney(pl)}</td><td><button class="linkbtn" data-sell="${s}">Sell</button></td></tr>`;}).join(""):`<tr><td colspan="7" class="empty">Your portfolio is empty. Go to Overview and buy a sample asset to begin.</td></tr>`;
+  }
+  function renderHistory(){
+    const trades=state.history.filter(h=>h.action==="BUY"||h.action==="SELL");
+    $("hTrades").textContent=trades.length;$("hBuys").textContent=trades.filter(h=>h.action==="BUY").length;$("hSells").textContent=trades.filter(h=>h.action==="SELL").length;$("hPL").textContent=money(state.realizedPL);$("historyCount").textContent=state.history.length+" records";
+    $("historyRows").innerHTML=state.history.length?state.history.map(h=>`<tr><td>${fmtDate(h.date)}</td><td><span class="pill">${h.action}</span></td><td><strong>${h.symbol}</strong><br><small style="color:var(--muted)">${escapeHTML(h.name||"")}</small></td><td>${h.units||"—"}</td><td>${h.unitPrice?money(h.unitPrice):"—"}</td><td>${h.amount?money(h.amount):"—"}</td><td class="${(h.pl||0)>=0?'positive':'negative'}">${h.action==="BUY"?"—":h.action==="SELL"?signedMoney(h.pl||0):"—"}</td></tr>`).join(""):`<tr><td colspan="7" class="empty">No activity yet. Buy an asset or simulate a market move.</td></tr>`;
+    $("recentHistory").innerHTML=state.history.length?state.history.slice(0,4).map(h=>`<div class="history-item"><div class="history-icon ${h.action==='SELL'?'sell':''}">${h.action==='BUY'?'↙':h.action==='SELL'?'↗':'↻'}</div><div class="history-detail"><strong>${h.action==='MARKET'?'Market prices updated':h.action+' '+h.symbol}</strong><small>${fmtDate(h.date)}${h.units?' • '+h.units+' unit(s)':''}</small></div><div class="history-amount">${h.amount?money(h.amount):''}</div></div>`).join(""):`<div class="empty">No recent activity yet.</div>`;
+  }
+  function renderChart(){
+    const svg=$("chart"),points=state.chart.slice(-12);const W=620,H=205,L=42,R=10,T=12,B=25,innerW=W-L-R,innerH=H-T-B;
+    const vals=points.map(p=>p.value);let min=Math.min(...vals,STARTING_CASH),max=Math.max(...vals,STARTING_CASH);if(max-min<100) {max+=100;min-=100;}
+    const x=i=>L+(points.length<=1?innerW/2:i*innerW/(points.length-1));const y=v=>T+(max-v)/(max-min)*innerH;
+    let out="";
+    for(let i=0;i<4;i++){const v=min+(max-min)*i/3,yy=y(v);out+=`<line x1="${L}" y1="${yy}" x2="${W-R}" y2="${yy}" stroke="#edf0f6" stroke-dasharray="3 4"/><text x="${L-7}" y="${yy+3}" text-anchor="end">${Math.round(v/1000)}k</text>`;}
+    const startY=y(STARTING_CASH);out+=`<line x1="${L}" y1="${startY}" x2="${W-R}" y2="${startY}" stroke="#31b78a" stroke-width="1.5" stroke-dasharray="5 5"/>`;
+    const coords=points.map((p,i)=>`${x(i)},${y(p.value)}`).join(" ");if(points.length>1){out+=`<polygon points="${L},${H-B} ${coords} ${W-R},${H-B}" fill="#4169e1" opacity=".08"/>`;}
+    out+=`<polyline points="${coords}" fill="none" stroke="#4169e1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`;
+    points.forEach((p,i)=>{out+=`<circle cx="${x(i)}" cy="${y(p.value)}" r="3.5" fill="#fff" stroke="#4169e1" stroke-width="2"/>`;});
+    ["Start","Trade 1","Trade 2","Market","Now"].forEach((lab,i)=>{if(i===0||i===4||points.length>4&&i===2)out+=`<text x="${L+i*innerW/4}" y="${H-5}" text-anchor="middle">${lab}</text>`;});
+    svg.innerHTML=out;
+  }
+  function renderAllocation(){
+    const entries=Object.entries(state.holdings).map(([s,h])=>({s,value:asset(s).price*h.units})).filter(x=>x.value>0);
+    const colors=["#4169e1","#29b78a","#f0b44a","#9c7ae8","#ec7195"];
+    if(!entries.length){$("donut").style.background="conic-gradient(#e6ebf4 0 100%)";$("allocationList").innerHTML='<div style="font-size:12px;color:var(--muted)">No investments yet</div>';return;}
+    const total=entries.reduce((a,b)=>a+b.value,0);let current=0;const segments=entries.map((e,i)=>{const start=current/total*100;current+=e.value;return `${colors[i%colors.length]} ${start}% ${current/total*100}%`;});$("donut").style.background=`conic-gradient(${segments.join(",")})`;
+    $("allocationList").innerHTML=entries.map((e,i)=>`<div class="alloc-row"><span style="--swatch:${colors[i%colors.length]}">${e.s}</span><strong>${(e.value/total*100).toFixed(1)}%</strong></div>`).join("");
+  }
+  function refreshAll(){
+    $("cashMetric").textContent=compact(state.cash);$("investMetric").textContent=compact(investValue());$("totalMetric").textContent=compact(totalValue());
+    $("plMetric").textContent=signedMoney(combinedPL());$("plMetric").className="metric-value "+(combinedPL()>=0?"positive":"negative");
+    $("returnFoot").textContent=((totalValue()-STARTING_CASH)/STARTING_CASH*100).toFixed(2)+"% since starting balance";
+    renderAssetSelect();renderWatch();renderChart();renderAllocation();renderMarket();renderPortfolio();renderHistory();
+  }
+  function exportCSV(name,rows){
+    const csv=rows.map(row=>row.map(v=>'"'+String(v??"").replace(/"/g,'""')+'"').join(",")).join("\r\n");
+    const blob=new Blob(["\ufeff"+csv],{type:"text/csv;charset=utf-8;"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=name;a.click();URL.revokeObjectURL(url);toast("CSV export prepared.");
+  }
+  function confirmModal(title,text,fn){pendingConfirm=fn;$("modalTitle").textContent=title;$("modalText").textContent=text;$("modalBackdrop").classList.add("show");}
+  function closeModal(){$("modalBackdrop").classList.remove("show");pendingConfirm=null;}
+  document.querySelectorAll("[data-page]").forEach(b=>b.addEventListener("click",()=>nav(b.dataset.page)));
+  document.addEventListener("click",e=>{
+    const goto=e.target.closest("[data-goto]");if(goto)nav(goto.dataset.goto);
+    const buy=e.target.closest("[data-buy]");if(buy){$("assetSelect").value=buy.dataset.buy;setMode("BUY");nav("overview");updatePreview();}
+    const sell=e.target.closest("[data-sell]");if(sell){$("assetSelect").value=sell.dataset.sell;$("unitsInput").value=1;setMode("SELL");nav("overview");updatePreview();}
+  });
+  $("assetSelect").addEventListener("change",updatePreview);$("unitsInput").addEventListener("input",updatePreview);
+  $("buyTab").addEventListener("click",()=>setMode("BUY"));$("sellTab").addEventListener("click",()=>setMode("SELL"));$("tradeButton").addEventListener("click",trade);
+  $("marketUpdate").addEventListener("click",simulateMarket);$("refreshChart").addEventListener("click",()=>{recordChart();persist();renderChart();toast("Chart refreshed.");});
+  $("modalCancel").addEventListener("click",closeModal);$("modalConfirm").addEventListener("click",()=>{const fn=pendingConfirm;closeModal();if(fn)fn();});
+  $("resetBtn").addEventListener("click",()=>confirmModal("Reset demo portfolio?","This deletes this browser's WealthWise demo balance, holdings, prices and transaction history.",()=>{
+    localStorage.removeItem(STORAGE_KEY);state={cash:STARTING_CASH,realizedPL:0,assets:seed.map(x=>({...x})),holdings:{},history:[],chart:[]};recordChart();persist();refreshAll();toast("Demo portfolio reset.");
+  }));
+  $("exportBtn").addEventListener("click",()=>exportCSV("wealthwise-portfolio.csv",[["Symbol","Asset","Type","Units","Average Buy Price","Current Price","Market Value","Unrealized P/L"],...Object.entries(state.holdings).map(([s,h])=>{const a=asset(s);return[s,a.name,a.type,h.units,h.avg,a.price,a.price*h.units,(a.price-h.avg)*h.units];})]));
+  $("exportHistory").addEventListener("click",()=>exportCSV("wealthwise-transactions.csv",[["Date","Action","Symbol","Asset","Units","Unit Price","Amount","Realized P/L"],...state.history.map(h=>[h.date,h.action,h.symbol,h.name,h.units,h.unitPrice,h.amount,h.pl])]));
+  $("dateChip").textContent="Session • "+new Date().toLocaleDateString("en-IN",{day:"2-digit",month:"short",year:"numeric"});
+  load();if(!state.chart.length)recordChart();refreshAll();persist();
+})();
+</script>
+</body>
+</html>
